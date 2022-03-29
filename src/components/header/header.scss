@@ -1,0 +1,23 @@
+.header{
+    margin: 1rem;
+    max-height: 15%;
+    max-width: 90%;
+    margin: 0 auto;
+    background-color: #000;
+    border: #e1e1e1 5px;
+    border-radius: 4px;
+    &__wrapper{
+        display:flex;
+        justify-content: center;
+    }
+    &__title{
+        max-width: 50%;
+        &--text{
+            color:#e1e1e1;
+            font-size:1.6rem;
+            font-weight: 700;
+        }
+
+    }
+
+}
