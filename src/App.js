@@ -1,16 +1,17 @@
 import React from 'react';
 import Header from './components/header/header'
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import Login from 
+import Home from './pages/home.js';
+import Prayer from './pages/savePrayer';
+
 function App(){
     return(
         <div className="app">
             <BrowserRouter>
             <Header/>
             <Switch>
-                <Route path="/home" exact component={}/>
-                <Route path='/login' component={}/>
-                <Route path='/save-prayer' component={}/>
+                <Route path="/home" exact component={Home}/>        
+                <Route path='/save-prayer' component={Prayer}/>
             </Switch>
             </BrowserRouter>
         </div>
