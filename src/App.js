@@ -6,14 +6,18 @@ import Prayer from './pages/savePrayer';
 import Profile from './pages/profile'
 import './styles/styles.scss'
 import Session from './pages/session'
+import useStyles from './styles/styles'
+
 
 function App(){
+    const classes = useStyles();
     return(
-        <div className="app">
+        <div className={classes.root}>
             <BrowserRouter>
             <Header/>
             <Switch>
-                <Route path="/home" exact component={Home}/>        
+                <Route path="/" exact component={Home} />
+                <Route path="/home"  component={Home}/>        
                 <Route path='/save-prayer' component={Prayer}/>
                 <Route path='/profile' component={Profile}/>
                 <Route path="/login" component={Session} />

@@ -15,7 +15,7 @@ import {
 import useStyles from "../styles/styles";
 
 function Home() {
-  const [response, setResponse] = useState(null);
+  const [todaysResponse, setResponse] = useState(null);
 //   const [todaysPost, todaysPrayer] = useState(null);
 
   const todaysPrayer = () => {
@@ -27,10 +27,10 @@ function Home() {
         }
       })
       .then(response => {
-        console.log(response.data.results[0].text);
-        setResponse({
-          todaysPost: response.data.results[0].text
-        }).catch(err => {
+        console.log(response.data.results[0]);
+        setResponse(
+         response.data.results[0].text
+        ).catch(err => {
           console.log(err);
         });
       });
@@ -66,11 +66,11 @@ function Home() {
           <CardMedia
             className={classes.cardMedia}
             image="https://sources.unsplash.com/random"
-            title="Uncovered Tresure"
+            title="Uncovered Treasure"
           />
           <CardContent className={classes.cardContent}>
             <Typography gutterbottom variant="h5">
-              {todaysPost}
+              {todaysResponse}
             </Typography>
           </CardContent>
         </Card>
