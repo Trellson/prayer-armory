@@ -1,8 +1,8 @@
 import React from 'react';
-import { Typography, AppBar, CssBaseline, Toolbar, IconButton } from '@material-ui/core'
-import HomeSharpIcon from '@mui/icons-material/HomeSharp';
+import { AppBar, CssBaseline, Toolbar, IconButton } from '@material-ui/core'
 import SortIcon from '@mui/icons-material/Sort';
-import useStyles from '../../styles/styles'
+import useStyles from '../styles/styles'
+import {Link} from 'react-router-dom'
 function Header() {
   
   const classes = useStyles();
@@ -11,7 +11,8 @@ function Header() {
       <CssBaseline />
       <AppBar className={classes.appBar} elevation={0} position="relative">
         <Toolbar className={classes.appBarWrapper}>
-          <h1 className={classes.title}> <span className={classes.colorText}>Prayer</span> Armory </h1>
+          <Link style={{ textDecoration: 'none', color: '#FFF' }} to="/">
+          <h1 className={classes.title}> Prayer <span className={classes.colorText}>Armory</span> </h1></Link>
           <Toolbar>
           <IconButton>
             <SortIcon className={classes.icon}/>

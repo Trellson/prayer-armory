@@ -2,21 +2,23 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
   Typography,
-  AppBar,
+  Button,
   Card,
   CardActions,
   CardContent,
-  CardMedia,
   CssBaseline,
   Grid,
-  Toolbar,
   Container
 } from "@material-ui/core";
+import Choose from "../components/choose";
 import useStyles from "../styles/styles";
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import PostRequest from '../api'
+
 
 function Home() {
-  const [todaysResponse, setResponse] = useState(null);
-//   const [todaysPost, todaysPrayer] = useState(null);
+  const [todaysResponse, setResponse] = useState("");
+  const [checked, setChecked] = useState(false);
 
   const todaysPrayer = () => {
     axios
@@ -28,9 +30,7 @@ function Home() {
       })
       .then(response => {
         console.log(response.data.results[0]);
-        setResponse(
-         response.data.results[0].text
-        ).catch(err => {
+        setResponse(response.data.results[0]).catch(err => {
           console.log(err);
         });
       });
@@ -39,42 +39,67 @@ function Home() {
   useEffect(() => {
     todaysPrayer();
   }, []);
+  useEffect(() => {
+    setChecked(true);
+  }, []);
 
   const classes = useStyles();
 
   return (
     <>
       <CssBaseline />
+
       <div className={classes.container}>
         <Container align="center" maxWidth="med" gutterBottom>
-          <Typography variant="h2">Welcome</Typography>
-          <Typography variant="h5">
+          <Typography className={classes.colorTextMain} variant="h2">
+            Welcome
+          </Typography>
+          <Typography className={classes.colorText} variant="h5">
             Welcome to the Prayer Armory! Every prayer Warrior needs to visit
             the Armory to gather supplies!
           </Typography>
-          <Typography variant="h5">
+          <Typography className={classes.colorText} variant="h5">
             Battling against the principalities of Darkness isn't easy!
           </Typography>
-          <Typography variant="h5">
+          <Typography className={classes.colorText} variant="h5">
             Come in! Find Rest! Get what you need!
           </Typography>
+
+          <Grid container spacing={0} direction="column" alignItems="center">
+            <Grid item>
+              <Card className={classes.card}>
+                <CardContent className={classes.cardContent}>
+                  <Typography
+                    className={classes.colorText}
+                    gutterbottom
+                    variant="h5"
+                  >
+                    {todaysResponse.text}
+                  </Typography>
+                  <Typography
+                  className={classes.colorText}
+                  variant="h6">
+                    {todaysResponse.scriptures}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small" color="primary">
+                    Share {/* copy to clipboard function jscript */}
+                  </Button>
+                  <Button size="small" color="primary">
+                  <AddBoxIcon onClick={PostRequest} />
+                    {/* add a plus button onClick function to post request */}
+                  </Button>
+                </CardActions>
+              </Card>
+            </Grid>
+          </Grid>
+
+          <div>
+            <Choose />
+          </div>
         </Container>
       </div>
-
-      <Container className={classes.cardGrid} maxWidth="md">
-        <Card className={classes.card}>
-          <CardMedia
-            className={classes.cardMedia}
-            image="https://sources.unsplash.com/random"
-            title="Uncovered Treasure"
-          />
-          <CardContent className={classes.cardContent}>
-            <Typography gutterbottom variant="h5">
-              {todaysResponse}
-            </Typography>
-          </CardContent>
-        </Card>
-      </Container>
     </>
   );
 }

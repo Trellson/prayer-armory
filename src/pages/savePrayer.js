@@ -1,38 +1,38 @@
+//conver this doc to function based component
+
 import React, { Component } from 'react';
 import '../styles/pageStyles/savePrayer.scss'
-import '../styles/pageStyles/savePrayer.scss'
-import {Link} from "react-router-dom";
-import axios from 'axios';
+import PostRequest from '../api'
 
 class savePrayer extends Component {
     state ={
-        catagoryValid: true,
+        categoryValid: true,
         prayerInput: true,
     }
 
     render() {
+         
         const handleSave = e =>{
-            axios.post ('http://localhost:8080/savePrayers', {
-                catagory: e.target.catagory.value,
-                prayerInput: e.target.prayerInput.value,
-            })
-            .then((response) => {console.log(response) })
-            .catch(err => {alert ("Error when saving prayer.");
-        })
+            e.preventDefault();
+            console.log("hahah")
+            PostRequest(e.target.category.value,
+                        e.target.prayerInput.value,
+                        e.target.scriptures.value.split(',').map((scripture) => scripture.trim()));
+                        
         };
         const validation = e =>{
             e.preventDefault();
 
-            let catagoryValid = true;
-            if (e.target.catagory.value === ""){
-                catagoryValid = false;
+            let categoryValid = true;
+            if (e.target.category.value === ""){
+                categoryValid = false;
             }
             let prayerInput = true;
             if (e.target.prayerInput.value === ""){
                 prayerInput = false;
             }
 
-         const validation = [catagoryValid, prayerInput]  
+         const validation = [categoryValid, prayerInput]  
          
          function CheckValidation(validation){
              return validation === false
@@ -43,20 +43,22 @@ class savePrayer extends Component {
                 console.log(err)});
          }
                 this.setState({
-                    catagoryValid,
+                    categoryValid,
                     prayerInput,
                 })
          this.handleSave(e);      
         }
         return (
             <div className="prayer">
-                <form onClick={this.handleSave} className="prayer__form">
-                    <label className="prayer__label">Catagory</label>
-                    <input className="prayer__input" type="text" name="catagory"></input>
+                <form onSubmit={handleSave} className="prayer__form">
+                    <label className="prayer__label">Category</label>
+                    <input className="prayer__input" type="text" name="category"></input>
                     <label className="prayer__label">Insert text here</label>
                     <textarea className="prayer__input prayer__text" type="text" name="prayerInput"></textarea>
+                    <label className="prayer__label">Scriptures</label>
+                    <input className="prayer__input" type="text" name="scriptures"></input>
                     <div className="prayer__form--buttons">
-                        <button> Save Prayer</button>
+                        <button type="submit"> Save Prayer</button> 
                     </div>
                 </form>
             </div>
