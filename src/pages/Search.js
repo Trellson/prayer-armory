@@ -9,15 +9,16 @@ import PostRequest from '../api'
 
 function App() {
   const [treasures, setTreasures] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("faith");
  
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
       .get(
-        `https://uncovered-treasure-v1.p.rapidapi.com/search/sheep${e.target.value}`,{
+        `https://uncovered-treasure-v1.p.rapidapi.com/search/${searchTerm}`,{
             headers: {
                 'X-RapidAPI-Host': 'uncovered-treasure-v1.p.rapidapi.com',
-                'X-RapidAPI-Key': 'f7d1b6d8aamsh2d278a09daadf8ep11fac8jsn76bc896410dd'
+                'X-RapidAPI-Key': process.env.REACT_APP_API_KEY
               }
         })
       .then((response) => {
@@ -26,16 +27,19 @@ function App() {
       })
       .catch((error) => console.log(error));
   };
+  const handleInputChange = (e) =>{
+    setSearchTerm(e.target.value);
+  };
 
   return (
       <>
       <CssBaseline/>
         <div >
-        <form   >
+        <form onSubmit={handleSubmit}  >
         <label className='prayer__label' htmlFor="component-filled">Search</label>
-        <input className="prayer__input"  defaultValue='faith' />
+        <input className="prayer__input"  defaultValue= {searchTerm} onChange={handleInputChange} />
       
-      <button onClick={handleSubmit}>search</button>
+      <button onClick={handleSubmit} >search</button>
       </form>
         </div>
       
@@ -48,7 +52,7 @@ function App() {
 
             />
           ))}
-      </main> */}
+      </main> 
       
     </>
   );
