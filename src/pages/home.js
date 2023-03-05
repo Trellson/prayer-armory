@@ -25,7 +25,7 @@ function Home() {
       .get("https://uncovered-treasure-v1.p.rapidapi.com/today", {
         headers: {
           "X-RapidAPI-Host": "uncovered-treasure-v1.p.rapidapi.com",
-          "X-RapidAPI-Key": "f7d1b6d8aamsh2d278a09daadf8ep11fac8jsn76bc896410dd"
+          "X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
         }
       })
       .then(response => {
